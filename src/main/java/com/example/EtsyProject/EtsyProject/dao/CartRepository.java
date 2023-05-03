@@ -17,7 +17,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer>{
                          @Param("productid") int productid);
 
     @Transactional
-    @Modifying
     @Query(value = "UPDATE Cart SET quantity =:quantity WHERE email =:email AND productId =:productid", nativeQuery = true)
     Integer updateQuantity(@Param("email") String email,
                         @Param("quantity") int quantity,
