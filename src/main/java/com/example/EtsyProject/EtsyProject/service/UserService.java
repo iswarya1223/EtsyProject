@@ -89,7 +89,6 @@ public class UserService {
 
         var theUser = userRepository.findByEmail(request.getEmail())
                 .orElseThrow( () -> new EntityNotFoundException("username not found"+ request.getEmail()) );
-        System.out.println(theUser);
         var jwtToken = jwtService.generateToken(theUser);
         return AuthenticationResponse.builder()
                 .user(theUser)

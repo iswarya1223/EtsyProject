@@ -4,6 +4,7 @@ import com.example.EtsyProject.EtsyProject.entity.Favorite;
 import com.example.EtsyProject.EtsyProject.entity.FavoriteId;
 import com.example.EtsyProject.EtsyProject.entity.Products;
 import com.example.EtsyProject.EtsyProject.service.FavoriteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,17 +20,19 @@ public class FavoriteController {
         this.favoriteService = favoriteService;
     }
     @PostMapping("/favorite")
-    public Favorite addFavorite(@RequestBody Favorite favorite){
-        return favoriteService.addFavorite(favorite);
+    public ResponseEntity<Favorite> addFavorite(@RequestBody Favorite favorite){
+
+        return ResponseEntity.ok(favoriteService.addFavorite(favorite));
     }
 
     @PostMapping("/deletefavorite")
-    public String deleteFavorite(@RequestBody FavoriteId favorite){
-        return favoriteService.deleteFavorite(favorite);
+    public ResponseEntity<String> deleteFavorite(@RequestBody FavoriteId favorite){
+
+        return ResponseEntity.ok(favoriteService.deleteFavorite(favorite));
     }
 
     @GetMapping("/getfavorite")
-    public List<Products> getFavorite(@RequestParam Map<String ,String > favData) throws Exception{
-        return favoriteService.getFavoriteProducts(favData);
+    public ResponseEntity<List<Products>> getFavorite(@RequestParam Map<String ,String > favData) throws Exception{
+        return ResponseEntity.ok(favoriteService.getFavoriteProducts(favData));
     }
 }

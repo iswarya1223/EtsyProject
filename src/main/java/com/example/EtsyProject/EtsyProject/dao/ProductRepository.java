@@ -20,5 +20,11 @@ public interface ProductRepository  {
                                  String sortType);
 
     void updateProductStockAndSalesCount(int quantity,int productId);
+
+    void changeCurrency(String currency);
+    List<Products> findByShopName(String shopName);
+
+    String save(Products products);
+    Products update(Products products);
 }
 

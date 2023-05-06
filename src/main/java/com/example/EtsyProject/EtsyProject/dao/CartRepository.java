@@ -30,6 +30,6 @@ public interface CartRepository extends JpaRepository<Cart,Integer>{
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Cart c where c.email =:email")
+    @Query("DELETE FROM Cart C where C.email =:email")
     Integer deleteByEmailId(@Param("email") String email);
 }
