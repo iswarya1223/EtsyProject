@@ -38,8 +38,8 @@ public class UserContoller {
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User theUser){
-        return userService.update(theUser);
+    public ResponseEntity<User> updateUser(@RequestBody User theUser){
+        return ResponseEntity.ok(userService.update(theUser));
     }
 
     @GetMapping("/users/{email}")

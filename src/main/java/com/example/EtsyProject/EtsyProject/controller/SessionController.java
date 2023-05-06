@@ -4,6 +4,7 @@ import com.example.EtsyProject.EtsyProject.dao.UserRepository;
 import com.example.EtsyProject.EtsyProject.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,9 @@ public class SessionController {
         userRepository = UserRepository;
     }
     @GetMapping("/hello")
-    public Optional<User> UserSession() {
+    public ResponseEntity<Optional<User>> UserSession() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
-        return userRepository.findByEmail(name);
+        return ResponseEntity.ok(userRepository.findByEmail(name));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.EtsyProject.EtsyProject.dao;
 
 import com.example.EtsyProject.EtsyProject.entity.Products;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -67,5 +68,35 @@ public class ProductDao implements ProductRepository{
         query.setParameter("quantity", quantity);
         query.setParameter("productId", productId);
         query.executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    @Modifying
+    public void changeCurrency(String currency) {
+        Query query = entityManager.createQuery("UPDATE Products p SET p.currency = :currency");
+        query.setParameter("currency",currency);
+        query.executeUpdate();
+    }
+
+    @Override
+    public List<Products> findByShopName(String shopName) {
+        TypedQuery<Products> query = entityManager.createQuery("SELECT P FROM Products P WHERE P.shopName=:shopName",Products.class);
+        query.setParameter("shopName",shopName);
+        return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public String save(Products products) {
+       entityManager.persist(products);
+       return "success";
+    }
+
+    @Override
+    @Transactional
+    @Modifying
+    public Products update(Products products) {
+        return entityManager.merge(products);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,5 +37,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<ErrorModel> handleEntityNotFound(EntityNotFoundException ex){
         ErrorModel error = new ErrorModel(HttpStatus.NOT_FOUND.value(), "Entity not found", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IOException.class)
+    private ResponseEntity<ErrorModel> handleEntityNotFound(IOException ex){
+        ErrorModel error = new ErrorModel(HttpStatus.INTERNAL_SERVER_ERROR.value(), "server error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

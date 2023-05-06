@@ -4,8 +4,12 @@ import com.example.EtsyProject.EtsyProject.entity.Products;
 import com.example.EtsyProject.EtsyProject.service.ProductService;
 import com.example.EtsyProject.EtsyProject.service.requests.SearchProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,16 +25,42 @@ public class ProductController {
 
     //display the product details based on the products given in the search query
     @PostMapping("/getSearchDetails/{keyword}")
-    public List<Products> searchProducts(@RequestBody SearchProductRequest searchProductRequest,
-                                      @PathVariable String keyword){
+    public ResponseEntity<List<Products>> searchProducts(@RequestBody SearchProductRequest searchProductRequest,
+                                                        @PathVariable String keyword){
 
-        return productService.searchProducts(searchProductRequest, keyword);
+        return ResponseEntity.ok(productService.searchProducts(searchProductRequest, keyword));
     }
 
     //display the product details based on the products given in the search query
     @GetMapping("/getProductDetail/{productid}")
-    public Optional<Products> getProductDetail(@PathVariable Integer productid) throws Exception{
-        return productService.getProductDetail(productid);
+    public ResponseEntity<Optional<Products>> getProductDetail(@PathVariable Integer productid) throws Exception{
+        return ResponseEntity.ok(productService.getProductDetail(productid));
+    }
+
+
+    @PutMapping("/changecurrency")
+    public ResponseEntity<String> changeCurrency(@RequestBody String currency){
+        return ResponseEntity.ok(productService.changeCurrency(currency));
+    }
+
+    @PostMapping("/saveproduct")
+    public ResponseEntity<Object> saveProduct(@RequestBody Products products) throws Exception{
+            productService.saveProducts(products);
+            return ResponseEntity.ok().body(new HashMap<String,Object>()
+            {{
+                put("success",true);
+            }}
+            );
+    }
+
+    @PutMapping("/updateproduct")
+    public ResponseEntity<Products> updateProduct(@RequestBody Products products) throws Exception{
+       try {
+           return ResponseEntity.ok().body(productService.updateProducts(products));
+       }
+       catch(Exception e){
+           throw new IOException(e);
+       }
     }
 
     @GetMapping("/test")
