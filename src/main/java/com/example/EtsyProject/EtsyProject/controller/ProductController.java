@@ -63,6 +63,22 @@ public class ProductController {
        }
     }
 
+    @DeleteMapping("/deleteproduct/{productId}")
+    public ResponseEntity<Object> updateProduct(@PathVariable Integer productId) throws Exception{
+        try {
+            productService.deleteProducts(productId);
+            return ResponseEntity.ok().body(new HashMap<String,Boolean>()
+                    {{
+                                put("success",true);
+                            }
+                    }
+            );
+        }
+        catch(Exception e){
+            throw new IOException(e);
+        }
+    }
+
     @GetMapping("/test")
     public String hello(){
         return "hello";

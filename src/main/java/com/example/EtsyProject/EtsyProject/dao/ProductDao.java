@@ -99,4 +99,12 @@ public class ProductDao implements ProductRepository{
     public Products update(Products products) {
         return entityManager.merge(products);
     }
+
+    @Override
+    @Transactional
+    @Modifying
+    public void deleteById(Integer productId) {
+        Products product = entityManager.find(Products.class,productId);
+        entityManager.remove(product);
+    }
 }
