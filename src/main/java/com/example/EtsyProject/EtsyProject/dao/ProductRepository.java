@@ -26,5 +26,6 @@ public interface ProductRepository  {
 
     String save(Products products);
     Products update(Products products);
+    void deleteById(Integer productId);
 }
 

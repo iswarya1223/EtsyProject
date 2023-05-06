@@ -1,9 +1,14 @@
 package com.example.EtsyProject.EtsyProject.service;
 
+import com.example.EtsyProject.EtsyProject.dao.CartRepository;
+import com.example.EtsyProject.EtsyProject.dao.FavoriteRepository;
 import com.example.EtsyProject.EtsyProject.dao.ProductRepository;
+import com.example.EtsyProject.EtsyProject.entity.Cart;
+import com.example.EtsyProject.EtsyProject.entity.Favorite;
 import com.example.EtsyProject.EtsyProject.entity.Products;
 import com.example.EtsyProject.EtsyProject.service.requests.SearchProductRequest;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +19,16 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+    private CartRepository cartRepository;
+    private FavoriteRepository favoriteRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CartRepository cartRepository,
+                          FavoriteRepository favoriteRepository) {
         this.productRepository = productRepository;
+        this.cartRepository=cartRepository;
+        this.favoriteRepository= favoriteRepository;
     }
 
     public List<Products> searchProducts(SearchProductRequest searchProductRequest, String keyword){
@@ -52,6 +63,18 @@ public class ProductService {
     public Products updateProducts(Products products) throws Exception{
         try {
             return productRepository.update(products);
+        }
+        catch (Exception e){
+            throw new IOException(e);
+        }
+    }
+
+    public String deleteProducts(Integer productId) throws Exception{
+        try {
+            productRepository.deleteById(productId);
+            cartRepository.deleteByProductId(productId);
+            favoriteRepository.deleteByProductId(productId);
+            return "Deleted Succesfully";
         }
         catch (Exception e){
             throw new IOException(e);
