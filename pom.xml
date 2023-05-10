@@ -90,7 +90,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>EtsyIntegration</finalName>
+		<finalName>etsyintegration</finalName>
 	</build>
 
 </project>
