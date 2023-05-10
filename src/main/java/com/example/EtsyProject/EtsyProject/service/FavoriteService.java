@@ -5,6 +5,7 @@ import com.example.EtsyProject.EtsyProject.entity.Favorite;
 import com.example.EtsyProject.EtsyProject.entity.FavoriteId;
 import com.example.EtsyProject.EtsyProject.entity.Products;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class FavoriteService {
     private FavoriteRepository favoriteRepository;
 
+    @Autowired
     public FavoriteService(FavoriteRepository favoriteRepository){
         this.favoriteRepository= favoriteRepository;
     }

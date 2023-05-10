@@ -4,6 +4,7 @@ import com.example.EtsyProject.EtsyProject.dao.CartRepository;
 import com.example.EtsyProject.EtsyProject.entity.Cart;
 import com.example.EtsyProject.EtsyProject.service.Response.CartResponse;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class CartService {
     private CartRepository cartRepository;
 
+    @Autowired
     public CartService(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }

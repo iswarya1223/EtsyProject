@@ -62,7 +62,7 @@ public class UserService {
                     .name(request.getName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
-                    .mobile(request.getMobile())
+                    .mobile(request.getLocation())
                     .role(Role.User)
                     .build();
 
