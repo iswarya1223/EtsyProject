@@ -4,6 +4,8 @@ import com.example.EtsyProject.EtsyProject.entity.Favorite;
 import com.example.EtsyProject.EtsyProject.entity.FavoriteId;
 import com.example.EtsyProject.EtsyProject.entity.Products;
 import com.example.EtsyProject.EtsyProject.service.FavoriteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ public class FavoriteController {
 
     private FavoriteService favoriteService;
 
+    @Autowired
     public FavoriteController(FavoriteService favoriteService){
         this.favoriteService = favoriteService;
     }

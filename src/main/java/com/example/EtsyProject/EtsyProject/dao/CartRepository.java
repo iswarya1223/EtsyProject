@@ -6,18 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart,Integer>{
 
-    @Query(value = "SELECT * FROM Cart WHERE email =:email AND productId =:productid", nativeQuery = true)
+    @Query("SELECT C FROM Cart C WHERE C.email =:email AND C.productId =:productid")
     Cart findCartDetails(@Param("email") String email,
                          @Param("productid") int productid);
 
     @Transactional
-    @Query(value = "UPDATE Cart SET quantity =:quantity WHERE email =:email AND productId =:productid", nativeQuery = true)
+    @Modifying
+    @Query("UPDATE Cart C SET C.quantity =:quantity WHERE C.email =:email AND C.productId =:productid")
     Integer updateQuantity(@Param("email") String email,
                         @Param("quantity") int quantity,
                         @Param("productid") int productid);

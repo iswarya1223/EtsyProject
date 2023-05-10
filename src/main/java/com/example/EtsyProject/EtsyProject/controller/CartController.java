@@ -3,6 +3,7 @@ package com.example.EtsyProject.EtsyProject.controller;
 import com.example.EtsyProject.EtsyProject.entity.Cart;
 import com.example.EtsyProject.EtsyProject.service.CartService;
 import com.example.EtsyProject.EtsyProject.service.Response.CartResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,10 @@ import java.util.Optional;
 @RequestMapping("/api/v1")
 public class CartController {
     private CartService cartService;
+
+    @Autowired
     public CartController(CartService cartService){
+
         this.cartService = cartService;
     }
 

@@ -32,6 +32,9 @@ public class ProductService {
     }
 
     public List<Products> searchProducts(SearchProductRequest searchProductRequest, String keyword){
+        if (keyword.equalsIgnoreCase("undefined")){
+            keyword = "";
+        }
 
         List<Products> products =  productRepository.queryProducts(keyword,
                 searchProductRequest.getMin_price(),

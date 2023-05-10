@@ -27,8 +27,9 @@ public class ProductController {
     @PostMapping("/getSearchDetails/{keyword}")
     public ResponseEntity<List<Products>> searchProducts(@RequestBody SearchProductRequest searchProductRequest,
                                                         @PathVariable String keyword){
-
-        return ResponseEntity.ok(productService.searchProducts(searchProductRequest, keyword));
+        List<Products> products = productService.searchProducts(searchProductRequest, keyword);
+        System.out.println(products);
+        return ResponseEntity.ok(products);
     }
 
     //display the product details based on the products given in the search query
